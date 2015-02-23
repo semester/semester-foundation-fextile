@@ -5,9 +5,9 @@ import semester.foundation.fextile.event.EventIssuer
 import semester.foundation.fextile.stage.PrimaryStage
 
 trait FextileApp extends EventIssuer {
-  def props: Props
-
   var stage: PrimaryStage = null
+
+  override def props: Option[Props] = Some(Props[ApplicationDefault])
 
   def main(args: Array[String]): Unit = {
     ApplicationLauncher(this, args).enqueue()

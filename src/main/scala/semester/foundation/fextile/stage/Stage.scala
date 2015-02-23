@@ -5,7 +5,7 @@ import javafx.stage.{Stage => FXStage, WindowEvent => FXWindowEvent}
 
 import semester.foundation.fextile.application.Fextile
 import semester.foundation.fextile.boundary.FextileDelegate
-import semester.foundation.fextile.event.WindowEvent
+import semester.foundation.fextile.event.{EventIssuer, WindowEvent}
 
 import scala.concurrent.Future
 
