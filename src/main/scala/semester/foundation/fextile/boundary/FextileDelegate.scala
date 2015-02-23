@@ -22,7 +22,4 @@ trait FextileDelegate[D]
     target
   }
 
-  def enqueue(operation: D => Unit): Unit = {
-    FextileProxy(this)(operation).enqueue()
-  }
 }
