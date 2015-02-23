@@ -1,5 +1,7 @@
 package semester.foundation.fextile.application
 
+import javafx.application.Platform
+
 import akka.actor._
 import semester.foundation.fextile.event.ApplicationWillLaunch
 
@@ -25,6 +27,11 @@ class Fextile extends Actor with Stash {
 }
 
 object Fextile {
+  def shutdown() = {
+    system.shutdown()
+    Platform.exit()
+  }
+
   val system = ActorSystem("fextile")
 
   val ref = system.actorOf(Props[Fextile])

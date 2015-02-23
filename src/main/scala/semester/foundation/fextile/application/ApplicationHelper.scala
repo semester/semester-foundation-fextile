@@ -23,7 +23,7 @@ class ApplicationHelper
 object ApplicationHelper {
   private[fextile] var launcher: Option[ApplicationLauncher] = None
   private[fextile] var stage: Option[JavaFXStage] = None
-  private[fextile] val launchLock: Semaphore = {
+  private val launchLock: Semaphore = {
     val semaphore = new Semaphore(Integer.MAX_VALUE)
     semaphore.drainPermits()
     semaphore
