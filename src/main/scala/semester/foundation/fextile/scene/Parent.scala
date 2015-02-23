@@ -1,9 +1,11 @@
 package semester.foundation.fextile.scene
 
-import java.util.concurrent.atomic.AtomicReference
+import javafx.scene.{Parent => FXParent}
 
-import scalafx.scene.{Parent => FXParent}
+import semester.foundation.fextile.boundary.FextileDelegate
 
-class Parent {
-  private val fxParent = new AtomicReference[FXParent]()
+import scala.concurrent.Future
+
+class Parent extends FextileDelegate[FXParent] {
+  override val delegate: Future[FXParent] = _
 }
