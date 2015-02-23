@@ -3,7 +3,7 @@ package semester.foundation.fextile.application
 import javafx.application.Platform
 
 import akka.actor._
-import semester.foundation.fextile.event.{Event, UIEvent, ApplicationWillLaunch}
+import semester.foundation.fextile.event.{WindowHidden, Event, UIEvent, ApplicationWillLaunch}
 
 class Fextile extends Actor with Stash {
   private var appActor: Option[ActorRef] = None
@@ -22,8 +22,16 @@ class Fextile extends Actor with Stash {
 
     case e: UIEvent[_, _] =>
       e.issuer.currentActor.map {
-        a =>
-          a ! e
+        actor =>
+          actor ! e
+      }
+
+      e match {
+        case w: WindowHidden =>
+          if (!w.fxEvent.isConsumed) {
+            Fextile.shutdown()
+          }
+        case _ =>
       }
 
     case e: Event[_] =>

@@ -6,4 +6,6 @@ trait UIEvent[FXE <: FXEvent, I <: EventIssuer]
   extends Event[I] {
 
   val fxEvent: FXE
+
+  def consume(): Unit = fxEvent.consume()
 }
