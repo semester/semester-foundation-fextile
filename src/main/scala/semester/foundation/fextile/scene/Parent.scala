@@ -6,6 +6,5 @@ import semester.foundation.fextile.boundary.FextileDelegate
 
 import scala.concurrent.Future
 
-class Parent extends FextileDelegate[fxs.Parent] {
-  override val delegate: Future[fxs.Parent] = _
+abstract class Parent extends FextileDelegate[fxs.Parent] {
 }

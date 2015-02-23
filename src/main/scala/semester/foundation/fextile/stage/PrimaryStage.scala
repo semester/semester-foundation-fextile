@@ -14,7 +14,7 @@ class PrimaryStage
     ApplicationHelper.launcher.get.app
   }
 
-  override val delegate: Future[stage.Stage] = Future {
-    decorate(ApplicationHelper.stage.get)(decorateWindowEvent)
+  override def initDelegate: stage.Stage = {
+    ApplicationHelper.stage.get
   }
 }

@@ -9,19 +9,36 @@ import semester.foundation.fextile.event.WindowEvent
 import scala.concurrent.Future
 
 class Stage
-  extends FextileDelegate[fxs.Stage] {
+  extends Window
+  with FextileDelegate[fxs.Stage] {
 
-  override val delegate: Future[fxs.Stage] = Future {
-    decorate(new fxs.Stage())(decorateWindowEvent)
-  }
+  override def initDelegate: fxs.Stage = new fxs.Stage()
 
-  def decorateWindowEvent(stage: fxs.Stage) = {
-    val issuer = this
-    stage.addEventHandler(fxs.WindowEvent.ANY, new fxe.EventHandler[fxs.WindowEvent] {
-      override def handle(event: fxs.WindowEvent): Unit = {
-        Fextile.ref ! WindowEvent(event, issuer)
-      }
-    })
+
+  //  override def decorateDelegate(): Unit = {
+  //    super.decorateDelegate()
+  //    delegate map {
+  //      stage =>
+  //        val issuer = this
+  //        stage.addEventHandler(fxs.WindowEvent.ANY, new fxe.EventHandler[fxs.WindowEvent] {
+  //          override def handle(event: fxs.WindowEvent): Unit = {
+  //            Fextile.ref ! WindowEvent(event, issuer)
+  //          }
+  //        })
+  //    }
+  //  }
+
+  override def decorateDelegate[DD >: fxs.Stage](target: DD): Unit = {
+    target match {
+      case s: fxs.Stage =>
+        val issuer = this
+        s.addEventHandler(fxs.WindowEvent.ANY, new fxe.EventHandler[fxs.WindowEvent] {
+          override def handle(event: fxs.WindowEvent): Unit = {
+            Fextile.ref ! WindowEvent(event, issuer)
+          }
+        })
+      case _ =>
+    }
   }
 
   //
@@ -34,11 +51,4 @@ class Stage
 
   def title_=(t: String): Unit = delegate(_.setTitle(t))
 
-  def width: Future[Double] = delegate(_.getWidth)
-
-  def width_=(w: Double): Unit = delegate(_.setWidth(w))
-
-  def height: Future[Double] = delegate(_.getHeight)
-
-  def height_=(h: Double): Unit = delegate(_.setHeight(h))
 }

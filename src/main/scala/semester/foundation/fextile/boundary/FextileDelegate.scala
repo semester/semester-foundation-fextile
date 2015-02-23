@@ -5,21 +5,22 @@ import semester.foundation.fextile.event.EventSource
 
 import scala.concurrent.Future
 
-trait FextileDelegate[D]
+trait FextileDelegate[+D]
   extends EventSource {
 
   implicit val executor = ApplicationHelper.fxExecutionContext
 
-  val delegate: Future[D]
+  val delegate: Future[D] = Future {
+    val d = initDelegate
+    decorateDelegate(d)
+    d
+  }
 
   def delegate[R](operation: D => R): Future[R] = {
     delegate.map(operation)
   }
-
-  def decorate(target: D)
-              (operation: D => Unit): D = {
-    operation(target)
-    target
-  }
-
+  
+  def initDelegate: D
+  
+  def decorateDelegate[DD >: D](target: DD): Unit
 }
