@@ -1,14 +1,19 @@
 package semester.foundation.fextile.application
 
 import akka.actor._
+import semester.foundation.fextile.event.ApplicationWillLaunch
 
 class Fextile extends Actor with Stash {
   private var appActor: Option[ActorRef] = None
 
   def receive: Receive = {
     case launcher: ApplicationLauncher =>
-      appActor = Some(Fextile.system.actorOf(launcher.app.props))
+      val actor = Fextile.system.actorOf(launcher.app.props)
+      appActor = Some(actor)
+
+      actor ! ApplicationWillLaunch(launcher.app, launcher.args)
       launcher.launch()
+
       unstashAll()
 
     case e =>
