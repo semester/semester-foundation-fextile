@@ -1,5 +1,5 @@
 package semester.foundation.fextile.event
 
-trait Event[I <: EventIssuer] {
+trait Event[I <: EventSource] {
   val issuer: I
 }

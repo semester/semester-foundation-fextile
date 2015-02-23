@@ -1,6 +1,6 @@
 package semester.foundation.fextile.application
 
-import javafx.application.{Application => JavaFXApplication}
+import javafx.{application => fxa}
 
 private[fextile]
 case class ApplicationLauncher(app: FextileApp,
@@ -8,7 +8,7 @@ case class ApplicationLauncher(app: FextileApp,
 
   def launch(): Unit = {
     ApplicationHelper.launcher = Some(this)
-    JavaFXApplication.launch(classOf[ApplicationHelper], args: _*)
+    fxa.Application.launch(classOf[ApplicationHelper], args: _*)
   }
 
   def enqueue(): Unit = {

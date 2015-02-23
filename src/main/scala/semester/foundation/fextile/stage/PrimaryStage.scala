@@ -2,15 +2,15 @@ package semester.foundation.fextile.stage
 
 import javafx.stage
 
-import semester.foundation.fextile.application.{Fextile, ApplicationHelper}
-import semester.foundation.fextile.event.EventIssuer
+import semester.foundation.fextile.application.ApplicationHelper
+import semester.foundation.fextile.event.EventSource
 
 import scala.concurrent.Future
 
 class PrimaryStage
   extends Stage {
 
-  override val supervisor: Future[EventIssuer] = Future {
+  override val supervisor: Future[EventSource] = Future {
     ApplicationHelper.launcher.get.app
   }
 

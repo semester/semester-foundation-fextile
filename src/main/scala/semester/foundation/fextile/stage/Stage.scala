@@ -1,25 +1,24 @@
 package semester.foundation.fextile.stage
 
-import javafx.event.EventHandler
-import javafx.stage.{Stage => FXStage, WindowEvent => FXWindowEvent}
+import javafx.{event => fxe, stage => fxs}
 
 import semester.foundation.fextile.application.Fextile
 import semester.foundation.fextile.boundary.FextileDelegate
-import semester.foundation.fextile.event.{EventIssuer, WindowEvent}
+import semester.foundation.fextile.event.WindowEvent
 
 import scala.concurrent.Future
 
 class Stage
-  extends FextileDelegate[FXStage] {
+  extends FextileDelegate[fxs.Stage] {
 
-  override val delegate: Future[FXStage] = Future {
-    decorate(new FXStage())(decorateWindowEvent)
+  override val delegate: Future[fxs.Stage] = Future {
+    decorate(new fxs.Stage())(decorateWindowEvent)
   }
 
-  def decorateWindowEvent(stage: FXStage) = {
+  def decorateWindowEvent(stage: fxs.Stage) = {
     val issuer = this
-    stage.addEventHandler(FXWindowEvent.ANY, new EventHandler[FXWindowEvent] {
-      override def handle(event: FXWindowEvent): Unit = {
+    stage.addEventHandler(fxs.WindowEvent.ANY, new fxe.EventHandler[fxs.WindowEvent] {
+      override def handle(event: fxs.WindowEvent): Unit = {
         Fextile.ref ! WindowEvent(event, issuer)
       }
     })

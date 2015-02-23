@@ -1,9 +1,9 @@
 package semester.foundation.fextile.event
 
-import javafx.event.{Event => FXEvent}
+import javafx.{event => fxe}
 
-trait UIEvent[FXE <: FXEvent, I <: EventIssuer]
-  extends Event[I] {
+trait UIEvent[FXE <: fxe.Event, ES <: EventSource]
+  extends Event[ES] {
 
   val fxEvent: FXE
 

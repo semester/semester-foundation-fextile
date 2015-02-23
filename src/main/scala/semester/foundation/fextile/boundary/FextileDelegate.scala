@@ -1,12 +1,12 @@
 package semester.foundation.fextile.boundary
 
 import semester.foundation.fextile.application.ApplicationHelper
-import semester.foundation.fextile.event.EventIssuer
+import semester.foundation.fextile.event.EventSource
 
 import scala.concurrent.Future
 
 trait FextileDelegate[D]
-  extends EventIssuer {
+  extends EventSource {
 
   implicit val executor = ApplicationHelper.fxExecutionContext
 

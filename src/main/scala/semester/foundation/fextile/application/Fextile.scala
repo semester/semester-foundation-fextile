@@ -1,6 +1,6 @@
 package semester.foundation.fextile.application
 
-import javafx.application.Platform
+import javafx.{application => fxa}
 
 import akka.actor._
 import semester.foundation.fextile.event.{WindowHidden, Event, UIEvent, ApplicationWillLaunch}
@@ -45,7 +45,7 @@ class Fextile extends Actor with Stash {
 object Fextile {
   def shutdown() = {
     system.shutdown()
-    Platform.exit()
+    fxa.Platform.exit()
   }
 
   val system = ActorSystem("fextile")

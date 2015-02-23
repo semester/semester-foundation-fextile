@@ -5,10 +5,10 @@ import semester.foundation.fextile.application.Fextile
 
 import scala.concurrent.Future
 
-trait EventIssuer {
+trait EventSource {
   def props: Option[Props] = None
 
-  def supervisor: Future[EventIssuer] = Future.successful(EventIssuer.issuerRoot)
+  def supervisor: Future[EventSource] = Future.successful(EventSource.sourceRoot)
 
   def actor: Option[ActorRef] = props map {
     p =>
@@ -28,8 +28,8 @@ trait EventIssuer {
   }
 }
 
-object EventIssuer {
-  val issuerRoot = new EventIssuer {
+object EventSource {
+  val sourceRoot = new EventSource {
     override def actor: Option[ActorRef] = Some(Fextile.appDefault)
   }
 }
