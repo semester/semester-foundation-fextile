@@ -6,15 +6,15 @@ import semester.foundation.fextile.application.Fextile
 trait EventSource {
   def props: Option[Props] = None
 
-  private[fextile] val actorRef: Option[ActorRef] = props.map(Fextile.system.actorOf)
+  private[fextile] val eventActor: Option[ActorRef] = props.map(Fextile.system.actorOf)
 
-  private[fextile] var supervisor: Option[EventSource] = None
+  private[fextile] var eventSupervisor: Option[EventSource] = None
 
   def currentActor: ActorRef = {
-    actorRef match {
+    eventActor match {
       case Some(a) => a
       case None =>
-        supervisor match {
+        eventSupervisor match {
           case Some(s) => s.currentActor
           case None => Fextile.appDefault
         }

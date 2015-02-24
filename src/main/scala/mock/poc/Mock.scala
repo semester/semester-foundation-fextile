@@ -19,23 +19,13 @@ class Mock extends Actor {
 }
 
 object Mock extends FextileApp {
-
-  class PrimaryMock extends Actor {
-    override def receive: Actor.Receive = {
-      case e =>
-        println(s"primary mock: $e")
-    }
-  }
-
-  val mainScene = new Scene {
-    fill = Color.BLUE
-  }
-
   stage = new PrimaryStage {
     title = "Mock"
     width = 800
     height = 600
-    scene = mainScene
+    scene = new Scene {
+      fill = Color.BLUE
+    }
   }
 
   override def props: Option[Props] = Some(Props[Mock])

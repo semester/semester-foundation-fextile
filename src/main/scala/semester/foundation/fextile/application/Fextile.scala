@@ -38,7 +38,7 @@ object Fextile {
 
   val system = ActorSystem("fextile")
 
-  val ref = system.actorOf(Props[Fextile])
+  val router = system.actorOf(Props[Fextile])
 
   val appDefault = system.actorOf(Props[ApplicationDefault])
 }

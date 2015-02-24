@@ -12,6 +12,6 @@ case class ApplicationLauncher(app: FextileApp,
   }
 
   def enqueue(): Unit = {
-    Fextile.ref ! this
+    Fextile.router ! this
   }
 }

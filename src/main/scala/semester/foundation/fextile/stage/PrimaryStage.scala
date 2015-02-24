@@ -8,7 +8,7 @@ class PrimaryStage
   extends Stage {
 
   override def createDelegate: fxs.Stage = {
-    supervisor = Some(ApplicationHelper.launcher.get.app)
+    eventSupervisor = Some(ApplicationHelper.launcher.get.app)
     ApplicationHelper.stage.get
   }
 }

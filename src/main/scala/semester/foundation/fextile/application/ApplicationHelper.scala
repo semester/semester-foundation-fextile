@@ -1,7 +1,7 @@
 package semester.foundation.fextile.application
 
-import java.util.concurrent.{Executors, Executor, Semaphore}
-import javafx.{stage => fxs, application => fxa}
+import java.util.concurrent.{Executor, Semaphore}
+import javafx.{application => fxa, stage => fxs}
 
 import scala.concurrent.{ExecutionContext, Future}
 
