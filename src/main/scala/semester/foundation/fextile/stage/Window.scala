@@ -3,10 +3,22 @@ package semester.foundation.fextile.stage
 import javafx.{stage => fxs}
 
 import semester.foundation.fextile.boundary.FextileDelegate
+import semester.foundation.fextile.event._
 
 import scala.concurrent.Future
 
 abstract class Window extends FextileDelegate[fxs.Window] {
+  override protected def decorateDelegate[DD >: fxs.Window](target: DD): Unit = {
+    super.decorateDelegate(target)
+    target match {
+      case w: fxs.Window =>
+        w.setOnCloseRequest(handler[fxs.WindowEvent, Window](WindowCloseRequest))
+        w.setOnHidden(handler[fxs.WindowEvent, Window](WindowHidden))
+        w.setOnHiding(handler[fxs.WindowEvent, Window](WindowHiding))
+        w.setOnShown(handler[fxs.WindowEvent, Window](WindowShown))
+        w.setOnShowing(handler[fxs.WindowEvent, Window](WindowShowing))
+    }
+  }
 
   //----
   // Read only properties

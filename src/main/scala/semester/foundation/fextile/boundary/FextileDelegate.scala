@@ -1,7 +1,10 @@
 package semester.foundation.fextile.boundary
 
+import javafx.event.EventHandler
+import javafx.{event => fxe}
+
 import semester.foundation.fextile.application.ApplicationHelper
-import semester.foundation.fextile.event.EventSource
+import semester.foundation.fextile.event.{UIEvent, EventSource}
 
 import scala.concurrent.Future
 
@@ -23,4 +26,13 @@ trait FextileDelegate[+D]
   protected def createDelegate: D
   
   protected def decorateDelegate[DD >: D](target: DD): Unit = {}
+
+  def handler[E <: fxe.Event, S <: EventSource](h: (E, S) => UIEvent[E, S]) = {
+    val source = this
+    new EventHandler[E] {
+      override def handle(event: E): Unit = {
+        h(event, source.asInstanceOf[S]).enqueue()
+      }
+    }
+  }
 }
