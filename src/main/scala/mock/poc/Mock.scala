@@ -27,13 +27,15 @@ object Mock extends FextileApp {
     }
   }
 
+  val mainScene = new Scene {
+    fill = Color.BLUE
+  }
+
   stage = new PrimaryStage {
     title = "Mock"
     width = 800
     height = 600
-    scene = new Scene {
-      fill = Color.BLUE
-    }
+    scene = mainScene
   }
 
   override def props: Option[Props] = Some(Props[Mock])

@@ -20,6 +20,7 @@ class Stage
   private var _scene: Option[Scene] = None
 
   def scene: Scene = _scene.get
+
   def scene_=(s: Scene) = {
     _scene = Some(s)
     s.supervisor = Some(this)
