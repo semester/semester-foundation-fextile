@@ -1,13 +1,16 @@
 package semester.foundation.fextile.application
 
+import java.util.concurrent.Executors
 import javafx.{application => fxa}
 
 import akka.actor._
 import semester.foundation.fextile.event.{WindowHidden, Event, UIEvent, ApplicationWillLaunch}
 
+import scala.concurrent.ExecutionContext
+
 class Fextile extends Actor with Stash {
   private var appActor: Option[ActorRef] = None
-  implicit val executor = Fextile.system.dispatcher
+  implicit val executor = ExecutionContext.fromExecutorService(Executors.newCachedThreadPool())
 
   def receive: Receive = {
     case launcher: ApplicationLauncher =>

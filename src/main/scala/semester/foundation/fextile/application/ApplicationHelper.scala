@@ -1,6 +1,6 @@
 package semester.foundation.fextile.application
 
-import java.util.concurrent.{Executor, Semaphore}
+import java.util.concurrent.{Executors, Executor, Semaphore}
 import javafx.{stage => fxs, application => fxa}
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -28,6 +28,8 @@ object ApplicationHelper {
     semaphore
   }
 
+  val enqueueExecutionContext = ExecutionContext.fromExecutorService(Executors.newCachedThreadPool())
+
   def fxExecutionContext: ExecutionContext = {
     ExecutionContext.fromExecutor(
       new Executor {
@@ -37,7 +39,7 @@ object ApplicationHelper {
               ApplicationHelper.launchLock.acquire()
             }
             fxa.Platform.runLater(command)
-          }(Fextile.system.dispatcher)
+          }(enqueueExecutionContext)
         }
       }
     )

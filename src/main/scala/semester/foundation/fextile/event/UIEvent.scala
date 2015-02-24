@@ -1,6 +1,5 @@
 package semester.foundation.fextile.event
 
-import javafx.event.EventHandler
 import javafx.{event => fxe}
 
 trait UIEvent[FXE <: fxe.Event]

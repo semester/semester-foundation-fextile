@@ -22,6 +22,7 @@ class Stage
   def scene: Scene = _scene.get
   def scene_=(s: Scene) = {
     _scene = Some(s)
+    s.supervisor = Some(this)
     s.delegate map {
       case _s =>
         delegate(_.setScene(_s))
