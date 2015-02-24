@@ -1,64 +1,23 @@
 package mock.poc
 
 object MockInitSeq {
-
-  class DataParent {
-    val name = "parent"
-
-    var status: String = "initial"
-
-    override def toString: String = s"name: $name, status; $status"
+  trait GrandParent {
+    def name: String = "GrandParent"
   }
-  class DataChild extends DataParent {
-    override val name: String = "child"
-
-    var childStatus: String = "initial"
-
-    override def toString: String = s"name: $name, status; $status, child: $childStatus"
+  trait Parent1 extends GrandParent {
+    override def name: String = "Parent1"
   }
-
-  trait Base[+A] {
-    val value: A = {
-      val a = create
-      decorate(a)
-      a
-    }
-
-    def create: A
-
-    def decorate[B >: A](d: B): Unit = {}
+  trait Parent2 extends GrandParent {
+    override def name: String = "Parent2"
   }
-
-  class OperationParent extends Base[DataParent] {
-    override def create: DataParent = new DataParent
-
-    override def decorate[B >: DataParent](d: B): Unit = {
-      println("decorate on OperationParent")
-      d match {
-        case dp: DataParent =>
-          dp.status = "decorated:parent"
-      }
-    }
-  }
-
-  class OperationChild extends OperationParent with Base[DataChild] {
-    override def create: DataChild = new DataChild
-
-    override def decorate[B >: DataChild](d: B): Unit = {
-      println("decorate on OperationChild")
-      super.decorate(d)
-      d match {
-        case dc: DataChild =>
-          dc.childStatus = "decorated:child"
-      }
+  class Child extends Parent1 with Parent2 {
+    def myParent() = {
+      println(s"${super.name}")
     }
   }
 
   def main(args: Array[String]) {
-    val op = new OperationParent
-    val oc = new OperationChild
-    println(s"${new DataChild}")
-    println(s"op: ${op.value}")
-    println(s"oc: ${oc.value}")
+    val child = new Child()
+    println(s"${child.name}")
   }
 }
