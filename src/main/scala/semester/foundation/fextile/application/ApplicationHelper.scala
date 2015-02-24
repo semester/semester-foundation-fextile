@@ -28,8 +28,6 @@ object ApplicationHelper {
     semaphore
   }
 
-  val enqueueExecutionContext = ExecutionContext.fromExecutorService(Executors.newCachedThreadPool())
-
   def fxExecutionContext: ExecutionContext = {
     ExecutionContext.fromExecutor(
       new Executor {
@@ -39,7 +37,7 @@ object ApplicationHelper {
               ApplicationHelper.launchLock.acquire()
             }
             fxa.Platform.runLater(command)
-          }(enqueueExecutionContext)
+          }(Fextile.system.dispatcher)
         }
       }
     )

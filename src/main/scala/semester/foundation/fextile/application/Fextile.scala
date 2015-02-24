@@ -1,16 +1,12 @@
 package semester.foundation.fextile.application
 
-import java.util.concurrent.Executors
 import javafx.{application => fxa}
 
 import akka.actor._
 import semester.foundation.fextile.event._
 
-import scala.concurrent.ExecutionContext
-
 class Fextile extends Actor with Stash {
   private var appActor: Option[ActorRef] = None
-  implicit val executor = ExecutionContext.fromExecutorService(Executors.newCachedThreadPool())
 
   def receive: Receive = {
     case launcher: ApplicationLauncher =>
@@ -36,8 +32,8 @@ class Fextile extends Actor with Stash {
 
 object Fextile {
   def shutdown() = {
-    system.shutdown()
     fxa.Platform.exit()
+    system.shutdown()
   }
 
   val system = ActorSystem("fextile")
