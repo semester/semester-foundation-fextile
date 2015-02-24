@@ -25,13 +25,6 @@ class Fextile extends Actor with Stash {
 
     case e: UIEvent[_] =>
       e.source.currentActor ! e
-      e match {
-        case w: WindowHidden =>
-          if (!w.fxEvent.isConsumed) {
-            Fextile.shutdown()
-          }
-        case _ =>
-      }
 
     case e: Event =>
       appActor match {

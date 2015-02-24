@@ -11,8 +11,10 @@ import semester.foundation.fextile.stage.PrimaryStage
 class Mock extends Actor {
   override def receive: Receive = {
     case e: MouseMoved =>
+      println("mouse moved")
       e.source match {
         case s: Scene =>
+          println("mouse moved: change color")
           s.fill = Color.RED
       }
 
