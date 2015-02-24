@@ -1,7 +1,10 @@
 package mock.poc
 
+import javafx.scene.paint.{Color, Paint}
+
 import akka.actor.{Actor, Props}
 import semester.foundation.fextile.application.FextileApp
+import semester.foundation.fextile.scene.Scene
 import semester.foundation.fextile.stage.PrimaryStage
 
 class Mock extends Actor {
@@ -24,6 +27,10 @@ object Mock extends FextileApp {
     title = "Mock"
     width = 800
     height = 600
+    scene = new Scene {
+      fill = Color.BLUE
+      override def props: Option[Props] = Some(Props[PrimaryMock])
+    }
 
     override def props: Option[Props] = Some(Props[PrimaryMock])
   }

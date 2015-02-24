@@ -3,8 +3,8 @@ package semester.foundation.fextile.event
 import semester.foundation.fextile.application.FextileApp
 
 trait ApplicationEvent
-  extends Event[FextileApp]
+  extends Event
 
-case class ApplicationWillLaunch(issuer: FextileApp,
+case class ApplicationWillLaunch(source: FextileApp,
                                  args: Array[String])
   extends ApplicationEvent

@@ -27,12 +27,13 @@ trait FextileDelegate[+D]
   
   protected def decorateDelegate[DD >: D](target: DD): Unit = {}
 
-  def handler[E <: fxe.Event, S <: EventSource](h: (E, S) => UIEvent[E, S]) = {
+  def handler[E <: fxe.Event](h: (E, EventSource) => UIEvent[E]) = {
     val source = this
     new EventHandler[E] {
       override def handle(event: E): Unit = {
-        h(event, source.asInstanceOf[S]).enqueue()
+        h(event, source).enqueue()
       }
     }
   }
+
 }

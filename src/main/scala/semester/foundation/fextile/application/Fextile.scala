@@ -20,12 +20,8 @@ class Fextile extends Actor with Stash {
       launcher.launch()
       unstashAll()
 
-    case e: UIEvent[_, _] =>
-      e.issuer.currentActor.map {
-        actor =>
-          actor ! e
-      }
-
+    case e: UIEvent[_] =>
+      e.source.currentActor ! e
       e match {
         case w: WindowHidden =>
           if (!w.fxEvent.isConsumed) {
@@ -34,7 +30,7 @@ class Fextile extends Actor with Stash {
         case _ =>
       }
 
-    case e: Event[_] =>
+    case e: Event =>
       appActor match {
         case Some(app) => app ! e
         case None => stash()

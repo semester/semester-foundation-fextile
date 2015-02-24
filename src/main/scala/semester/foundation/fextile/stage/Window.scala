@@ -11,8 +11,12 @@ abstract class Window extends FextileDelegate[fxs.Window] {
   override protected def decorateDelegate[DD >: fxs.Window](target: DD): Unit = {
     super.decorateDelegate(target)
     target match {
-      case w: fxs.Window =>
-        WindowEvent.decorateHandlers(this, w)
+      case t: fxs.Window =>
+        t.setOnCloseRequest(handler[fxs.WindowEvent](WindowCloseRequest))
+        t.setOnHidden(handler[fxs.WindowEvent](WindowHidden))
+        t.setOnHiding(handler[fxs.WindowEvent](WindowHiding))
+        t.setOnShown(handler[fxs.WindowEvent](WindowShown))
+        t.setOnShowing(handler[fxs.WindowEvent](WindowShowing))
     }
   }
 
