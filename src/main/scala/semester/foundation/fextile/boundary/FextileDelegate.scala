@@ -11,7 +11,7 @@ trait FextileDelegate[+D]
   implicit val executor = ApplicationHelper.fxExecutionContext
 
   val delegate: Future[D] = Future {
-    val d = initDelegate
+    val d = createDelegate
     decorateDelegate(d)
     d
   }
@@ -20,7 +20,7 @@ trait FextileDelegate[+D]
     delegate.map(operation)
   }
   
-  def initDelegate: D
+  protected def createDelegate: D
   
-  def decorateDelegate[DD >: D](target: DD): Unit
+  protected def decorateDelegate[DD >: D](target: DD): Unit = {}
 }

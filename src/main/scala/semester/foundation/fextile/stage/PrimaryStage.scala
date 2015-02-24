@@ -1,6 +1,6 @@
 package semester.foundation.fextile.stage
 
-import javafx.stage
+import javafx.{stage => fxs}
 
 import semester.foundation.fextile.application.ApplicationHelper
 import semester.foundation.fextile.event.EventSource
@@ -14,7 +14,7 @@ class PrimaryStage
     ApplicationHelper.launcher.get.app
   }
 
-  override def initDelegate: stage.Stage = {
+  override def createDelegate: fxs.Stage = {
     ApplicationHelper.stage.get
   }
 }

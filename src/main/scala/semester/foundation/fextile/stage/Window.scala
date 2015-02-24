@@ -7,9 +7,6 @@ import semester.foundation.fextile.boundary.FextileDelegate
 import scala.concurrent.Future
 
 abstract class Window extends FextileDelegate[fxs.Window] {
-  override val delegate: Future[fxs.Window] = Future {
-    new fxs.Stage()
-  }
 
   //----
   // Read only properties
