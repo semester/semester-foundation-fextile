@@ -4,6 +4,6 @@ trait Event {
   val source: EventSource
 
   def enqueue(): Unit = {
-    source.currentActor ! this
+    source.currentActor ! (source, this)
   }
 }

@@ -4,7 +4,7 @@ import java.util.concurrent.Executors
 import javafx.{application => fxa}
 
 import akka.actor._
-import semester.foundation.fextile.event.{WindowHidden, Event, UIEvent, ApplicationWillLaunch}
+import semester.foundation.fextile.event._
 
 import scala.concurrent.ExecutionContext
 
@@ -23,10 +23,10 @@ class Fextile extends Actor with Stash {
       launcher.launch()
       unstashAll()
 
-    case e: UIEvent[_] =>
-      e.source.currentActor ! e
+    case (source: EventSource, e: UIEvent[_]) =>
+      source.currentActor ! e
 
-    case e: Event =>
+    case (source: EventSource, e: Event) =>
       appActor match {
         case Some(app) => app ! e
         case None => stash()

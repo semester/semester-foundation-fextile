@@ -3,23 +3,18 @@ package mock.poc
 import javafx.scene.paint.Color
 
 import akka.actor.{Actor, Props}
-import semester.foundation.fextile.application.FextileApp
-import semester.foundation.fextile.event.{MouseMoved, MouseClicked}
+import semester.foundation.fextile.application.{Fextile, FextileApp}
+import semester.foundation.fextile.event.{WindowHidden, MouseClicked}
 import semester.foundation.fextile.scene.Scene
 import semester.foundation.fextile.stage.PrimaryStage
 
 class Mock extends Actor {
   override def receive: Receive = {
-    case e: MouseMoved =>
-      println("mouse moved")
-      e.source match {
-        case s: Scene =>
-          println("mouse moved: change color")
-          s.fill = Color.RED
-      }
+    case (s: Scene, e: MouseClicked) =>
+      s.fill = Color.RED
 
-    case e =>
-      println(s"mock: $e")
+    case (_, _: WindowHidden) =>
+      Fextile.shutdown()
   }
 }
 
