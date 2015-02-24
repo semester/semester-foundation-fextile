@@ -5,7 +5,7 @@ import semester.foundation.fextile.event.WindowHidden
 
 class ApplicationDefault extends Actor {
   override def receive: Receive = {
-    case _: WindowHidden =>
+    case (_, _: WindowHidden) =>
       Fextile.shutdown()
   }
 }
